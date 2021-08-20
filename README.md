@@ -1,3 +1,5 @@
+# ShaderTools
+
 Plugin for SSE Parallax Shader Fix.
 
 ## Requirements
@@ -21,3 +23,9 @@ cd SSEShaderTools
 git submodule update --init --recursive
 cmake -B build -S .
 ```
+
+## Credits
+Originally written by [aers](https://github.com/aers).
+CommonlibNG port by [doodlum](https://github.com/doodlum).
+VR offsets by [alandtse](https://github.com/alandtse)
+
