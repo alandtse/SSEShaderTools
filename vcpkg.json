@@ -1,13 +1,21 @@
 {
-  "name": "sseshadertools",
-  "version-string": "1.0.0",
-  "description": "Plugin for SSE Parallax Shader Fix.",
-  "homepage": "https://github.com/aers/SSEShaderTools",
-  "license": "MIT",
-  "dependencies": [
-    "boost-stl-interfaces",
-	"rsm-binary-io",
-    "spdlog",
-	"xbyak"
-  ]
+    "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+    "name": "commonlibsse-plugin",
+    "version-string": "1.0.0",
+    "port-version": 0,
+    "description": "SKSE plugin based on CommonLibSSE, for unified AE/SE/VR deployment.",
+    "homepage": "https://www.skyrimng.com",
+    "license": "Apache-2.0",
+    "features": {
+        "plugin": {
+            "description": "Build the SKSE plugin.",
+          "dependencies": [
+            "commonlibsse-ng",
+            "xbyak"
+          ]
+        }
+    },
+    "default-features": [
+        "plugin"
+    ]
 }
