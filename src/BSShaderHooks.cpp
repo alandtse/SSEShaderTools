@@ -83,7 +83,7 @@ namespace BSShaderHooks
 					continue;
 				}
 
-				logger::info("found shader technique id {:08x} with path {}"sv, techniqueId, entry.path().generic_string());
+				logger::debug("found shader technique id {:08x} with path {}"sv, techniqueId, entry.path().generic_string());
 				foundCount++;
 				techniqueFileMap.insert(std::make_pair(techniqueId, absolute(entry.path()).wstring()));
 			}
@@ -93,7 +93,6 @@ namespace BSShaderHooks
 				if (tFileIt != techniqueFileMap.end()) {
 					bool compile = tFileIt->second.ends_with(L".hlsl");
 					if (const auto shader = compile ? ShaderCompiler::CompileAndRegisterPixelShader(tFileIt->second) : ShaderCompiler::RegisterPixelShader(tFileIt->second)) {
-						logger::info("shader compiled successfully, replacing old shader"sv);
 						successCount++;
 						entry->m_Shader = shader;
 					} else {
