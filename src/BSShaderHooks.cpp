@@ -13,7 +13,7 @@ namespace BSShaderHooks
 	{
 		oLoadShaders(bsShader, stream);
 
-		logger::info("BSShader::LoadShaders called on {} - ps count {}"sv, bsShader->m_LoaderType, bsShader->m_PixelShaderTable.size());
+		logger::info("BSShader::LoadShaders called on {} - ps count {}", bsShader->m_LoaderType, bsShader->m_PixelShaderTable.size());
 
 		if (strcmp("Lighting", bsShader->m_LoaderType) == 0) {
 			std::unordered_map<REX::TechniqueID, std::wstring> techniqueFileMap;
@@ -21,7 +21,6 @@ namespace BSShaderHooks
 			const auto shaderDir = std::filesystem::current_path() /= "Data/SKSE/plugins/shaders/"sv;
 
 			if (std::filesystem::exists(shaderDir)) {
-				logger::info("{}", shaderDir.generic_string());
 
 				std::size_t foundCount = 0;
 				std::size_t successCount = 0;
@@ -34,7 +33,7 @@ namespace BSShaderHooks
 					auto filenameStr = entry.path().filename().string();
 					auto techniqueIdStr = filenameStr.substr(0, filenameStr.find('_'));
 					const REX::TechniqueID techniqueId = std::strtoul(techniqueIdStr.c_str(), nullptr, 16);
-					logger::info("found shader technique id {:08x} with path {}"sv, techniqueId, entry.path().generic_string());
+					logger::info("found shader technique id {:08x} with path {}", techniqueId, entry.path().generic_string());
 					foundCount++;
 					techniqueFileMap.insert(std::make_pair(techniqueId, absolute(entry.path()).wstring()));
 				}
@@ -43,7 +42,7 @@ namespace BSShaderHooks
 					auto tFileIt = techniqueFileMap.find(entry->m_TechniqueID);
 					if (tFileIt != techniqueFileMap.end()) {
 						if (const auto shader = ShaderCompiler::CompileAndRegisterPixelShader(tFileIt->second)) {
-							logger::info("shader compiled successfully, replacing old shader"sv);
+							logger::info("shader compiled successfully, replacing old shader");
 							successCount++;
 							entry->m_Shader = shader;
 						} else {
@@ -83,7 +82,7 @@ namespace BSShaderHooks
 					continue;
 				}
 
-				logger::debug("found shader technique id {:08x} with path {}"sv, techniqueId, entry.path().generic_string());
+				logger::info("found shader technique id {:08x} with path {}", techniqueId, entry.path().generic_string());
 				foundCount++;
 				techniqueFileMap.insert(std::make_pair(techniqueId, absolute(entry.path()).wstring()));
 			}
@@ -93,6 +92,7 @@ namespace BSShaderHooks
 				if (tFileIt != techniqueFileMap.end()) {
 					bool compile = tFileIt->second.ends_with(L".hlsl");
 					if (const auto shader = compile ? ShaderCompiler::CompileAndRegisterPixelShader(tFileIt->second) : ShaderCompiler::RegisterPixelShader(tFileIt->second)) {
+						logger::info("shader compiled successfully, replacing old shader");
 						successCount++;
 						entry->m_Shader = shader;
 					} else {
@@ -109,7 +109,7 @@ namespace BSShaderHooks
 	{
 		ENB_API::ENBSDK1001* g_ENB = reinterpret_cast<ENB_API::ENBSDK1001*>(ENB_API::RequestENBAPI(ENB_API::SDKVersion::V1001));
 		if (!g_ENB) {
-			logger::info("Installing BSShader::LoadShaders hook"sv);
+			logger::info("Installing BSShader::LoadShaders hook");
 			{
 				struct Patch : Xbyak::CodeGenerator
 				{
@@ -137,8 +137,8 @@ namespace BSShaderHooks
 					LoadShaders.address(),
 					hk_LoadShaders);
 			}
-			logger::info("Installed"sv);
+			logger::info("Installed");
 		}
-		logger::info("ENB detected, not installing hooks"sv);
+		logger::info("ENB detected, not installing hooks");
 	}
 }

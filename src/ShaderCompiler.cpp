@@ -10,7 +10,7 @@ namespace ShaderCompiler
 		ID3DBlob* shaderBlob = nullptr;
 
 		if (FAILED(D3DReadFileToBlob(a_filePath.c_str(), &shaderBlob))) {
-			logger::error("Pixel shader load failed:\n{}"sv, "File does not exist or is invalid");
+			logger::error("Pixel shader load failed:\n{}", "File does not exist or is invalid");
 
 			if (shaderBlob)
 				shaderBlob->Release();
@@ -18,14 +18,14 @@ namespace ShaderCompiler
 			return nullptr;
 		}
 
-		logger::debug("shader load succeeded"sv);
+		logger::debug("shader load succeeded");
 
-		logger::debug("registering shader"sv);
+		logger::debug("registering shader");
 
 		ID3D11PixelShader* regShader;
 
 		if (FAILED((*g_ID3D11Device)->CreatePixelShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, &regShader))) {
-			logger::error("pixel shader registration failed"sv);
+			logger::error("pixel shader registration failed");
 
 			if (shaderBlob)
 				shaderBlob->Release();
@@ -33,7 +33,7 @@ namespace ShaderCompiler
 			return nullptr;
 		}
 
-		logger::debug("shader registration succeeded"sv);
+		logger::debug("shader registration succeeded");
 
 		return regShader;
 	}
@@ -52,7 +52,7 @@ namespace ShaderCompiler
 		ID3DBlob* shaderErrors = nullptr;
 
 		if (FAILED(D3DCompileFromFile(a_filePath.c_str(), macros, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "ps_5_0", compilerFlags, 0, &shaderBlob, &shaderErrors))) {
-			logger::error("Pixel shader compilation failed:\n{}"sv, shaderErrors ? (const char*)shaderErrors->GetBufferPointer() : "Unknown error");
+			logger::error("Pixel shader compilation failed:\n{}", shaderErrors ? (const char*)shaderErrors->GetBufferPointer() : "Unknown error");
 
 			if (shaderBlob)
 				shaderBlob->Release();
@@ -66,14 +66,14 @@ namespace ShaderCompiler
 		if (shaderErrors)
 			shaderErrors->Release();
 
-		logger::debug("shader compilation succeeded"sv);
+		logger::debug("shader compilation succeeded");
 
-		logger::debug("registering shader"sv);
+		logger::debug("registering shader");
 
 		ID3D11PixelShader* regShader;
 
 		if (FAILED((*g_ID3D11Device)->CreatePixelShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), nullptr, &regShader))) {
-			logger::error("pixel shader registration failed"sv);
+			logger::error("pixel shader registration failed");
 
 			if (shaderBlob)
 				shaderBlob->Release();
@@ -81,7 +81,7 @@ namespace ShaderCompiler
 			return nullptr;
 		}
 
-		logger::debug("shader registration succeeded"sv);
+		logger::debug("shader registration succeeded");
 
 		return regShader;
 	}
