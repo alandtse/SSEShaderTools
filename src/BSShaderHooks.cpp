@@ -139,6 +139,8 @@ namespace BSShaderHooks
 			}
 			logger::info("Installed");
 		}
-		logger::info("ENB detected, not installing hooks");
+		else {
+			logger::info("ENB detected, not installing hooks");
+		}
 	}
 }
