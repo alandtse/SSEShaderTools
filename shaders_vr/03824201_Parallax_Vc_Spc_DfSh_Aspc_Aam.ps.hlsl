@@ -94,7 +94,7 @@ void main(
   r0.xy = v0.xy * cb0[2].xy + cb0[2].zw;
   r0.x = cb12[86].x * r0.x;
   r0.z = cmp(r0.x >= 0.5);
-  r0.z = r0.z ? 0.000000 : 0;
+  r0.z ? 1.000000 : 0;
   r0.w = (uint)cb13[0].y;
   r0.z = (int)r0.w * (int)r0.z;
   r1.x = (uint)r0.z;

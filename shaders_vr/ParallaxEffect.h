@@ -22,10 +22,11 @@ float2 GetParallaxCoords(float2 coords, float3 viewDir, float3 bitangent, float3
 	
 	float currHeight = 0.0;
 	float stepSize = 1.0/ (float)numSteps;
-	float prevHeight = 1.0;
 	
 	float2 offsetPerStep = tangentViewDir.xy * float2(0.0800,0.0800) * stepSize.xx;
 	float2 currentOffset = tangentViewDir.xy * float2(0.0400,0.0400) + coords.xy;
+	float heightCorrectionScale = ((-1.0*tangentViewDir.z)+2.0);
+	float prevHeight = 1.0;
 	float currentBound = 1.0;
 	float parallaxAmount = 0.0;
 	
@@ -36,7 +37,8 @@ float2 GetParallaxCoords(float2 coords, float3 viewDir, float3 bitangent, float3
 	{
 		currentOffset -= offsetPerStep;
 		
-		currHeight = t3.SampleGrad(s3_s, currentOffset,dx,dy).x;
+		currHeight = t3.SampleGrad(s3_s, currentOffset,dx,dy).x - 0.5;
+		currHeight = heightCorrectionScale * currHeight + 0.5;
 		
 		currentBound -= stepSize;
 		if(currHeight>currentBound)

@@ -31,4 +31,5 @@ cmake -B build -S .
 * CommonlibNG port by [doodlum](https://github.com/doodlum).
 * VR offsets by [alandtse](https://github.com/alandtse)
 * VR shader port by [shadowking97](https://www.nexusmods.com/skyrimspecialedition/users/2336911)
+* VR TAA/DLAA shader fix by [PureDark](https://github.com/PureDark)
 
