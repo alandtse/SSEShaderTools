@@ -30,4 +30,5 @@ cmake -B build -S .
 * Originally written by [aers](https://github.com/aers/SSEShaderTools). [Nexus](https://www.nexusmods.com/skyrimspecialedition/mods/31963)
 * CommonlibNG port by [doodlum](https://github.com/doodlum).
 * VR offsets by [alandtse](https://github.com/alandtse)
+* VR shader port by [shadowking97](https://www.nexusmods.com/skyrimspecialedition/users/2336911)
 
