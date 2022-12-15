@@ -21,6 +21,7 @@ namespace BSShaderHooks
 			const auto shaderDir = std::filesystem::current_path() /= "Data/SKSE/plugins/shaders/"sv;
 
 			if (std::filesystem::exists(shaderDir)) {
+				logger::info("Shaderpath is {}", shaderDir.generic_string());
 
 				std::size_t foundCount = 0;
 				std::size_t successCount = 0;
@@ -42,7 +43,7 @@ namespace BSShaderHooks
 					auto tFileIt = techniqueFileMap.find(entry->m_TechniqueID);
 					if (tFileIt != techniqueFileMap.end()) {
 						if (const auto shader = ShaderCompiler::CompileAndRegisterPixelShader(tFileIt->second)) {
-							logger::info("shader compiled successfully, replacing old shader");
+							logger::info("shader technique id {:08x} compiled successfully, replacing old shader"sv, entry->m_TechniqueID);
 							successCount++;
 							entry->m_Shader = shader;
 						} else {
@@ -108,8 +109,8 @@ namespace BSShaderHooks
 	void Install()
 	{
 		ENB_API::ENBSDK1001* g_ENB = reinterpret_cast<ENB_API::ENBSDK1001*>(ENB_API::RequestENBAPI(ENB_API::SDKVersion::V1001));
-		if (!g_ENB) {
-			logger::info("Installing BSShader::LoadShaders hook");
+		if (!g_ENB || REL::Module::IsVR()) {
+			logger::info("Installing BSShader::LoadShaders hook"sv);
 			{
 				struct Patch : Xbyak::CodeGenerator
 				{
@@ -137,10 +138,10 @@ namespace BSShaderHooks
 					LoadShaders.address(),
 					hk_LoadShaders);
 			}
-			logger::info("Installed");
+			logger::info("Hooks Installed"sv);
 		}
-		else {
-			logger::info("ENB detected, not installing hooks");
+		else if (!g_ENB) {
+			logger::info("ENB detected, not installing hooks"sv);
 		}
 	}
 }

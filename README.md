@@ -1,6 +1,8 @@
 # ShaderTools
 
 Plugin for SSE Parallax Shader Fix.
+  * [SSE/AE](https://www.nexusmods.com/skyrimspecialedition/mods/70760)
+  * [VR](https://www.nexusmods.com/skyrimspecialedition/mods/62090)
 
 ## Requirements
 * [CMake](https://cmake.org/)
@@ -25,7 +27,7 @@ cmake -B build -S .
 ```
 
 ## Credits
-Originally written by [aers](https://github.com/aers).
-CommonlibNG port by [doodlum](https://github.com/doodlum).
-VR offsets by [alandtse](https://github.com/alandtse)
+* Originally written by [aers](https://github.com/aers/SSEShaderTools). [Nexus](https://www.nexusmods.com/skyrimspecialedition/mods/31963)
+* CommonlibNG port by [doodlum](https://github.com/doodlum).
+* VR offsets by [alandtse](https://github.com/alandtse)
 

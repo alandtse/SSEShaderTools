@@ -53,7 +53,6 @@ target_sources(
 	PRIVATE
 		${CMAKE_CURRENT_BINARY_DIR}/cmake/Plugin.h
 		${CMAKE_CURRENT_BINARY_DIR}/cmake/version.rc
-		.clang-format
 		.editorconfig)
 
 target_precompile_headers(
@@ -62,7 +61,6 @@ target_precompile_headers(
 		include/PCH.h
 )
 
-find_path(SIMPLEINI_INCLUDE_DIRS "ConvertUTF.c")
 
 target_include_directories(
 	"${PROJECT_NAME}"
@@ -71,7 +69,6 @@ target_include_directories(
 	PRIVATE
 		${CMAKE_CURRENT_BINARY_DIR}/cmake
 		${CMAKE_CURRENT_SOURCE_DIR}/src
-		${SIMPLEINI_INCLUDE_DIRS}
 		# ${CMAKE_CURRENT_BINARY_DIR}/vcpkg_installed/x64-windows-static-md/include/detours
 )
 
@@ -86,8 +83,8 @@ if (CMAKE_GENERATOR MATCHES "Visual Studio")
 
 	target_compile_definitions(${PROJECT_NAME} PRIVATE "$<$<CONFIG:DEBUG>:DEBUG>")
 
-	set(SC_RELEASE_OPTS "/Zi;/fp:fast;/GL;/Gy-;/Gm-;/Gw;/sdl-;/GS-;/guard:cf-;/O2;/Ob2;/Oi;/Ot;/Oy;/fp:except-")	
-	
+	set(SC_RELEASE_OPTS "/Zi;/fp:fast;/GL;/Gy-;/Gm-;/Gw;/sdl-;/GS-;/guard:cf-;/O2;/Ob2;/Oi;/Ot;/Oy;/fp:except-")
+
 	target_compile_options(
 		"${PROJECT_NAME}"
 		PRIVATE
@@ -138,8 +135,8 @@ find_package(xbyak CONFIG REQUIRED)
 if (BUILD_SKYRIM)
 	find_package(CommonLibSSE REQUIRED)
 	target_link_libraries(
-		${PROJECT_NAME} 
-		PUBLIC 
+		${PROJECT_NAME}
+		PUBLIC
 			CommonLibSSE::CommonLibSSE
 		PRIVATE
 			d3dcompiler.lib
