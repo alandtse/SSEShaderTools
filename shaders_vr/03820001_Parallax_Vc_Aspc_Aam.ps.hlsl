@@ -86,7 +86,7 @@ void main(
   r0.xy = v0.xy * cb0[2].xy + cb0[2].zw;
   r0.x = cb12[86].x * r0.x;
   r0.z = cmp(r0.x >= 0.5);
-  r0.z ? 1.000000 : 0;
+  r0.z = r0.z ? 1.000000 : 0;
   r0.w = (uint)cb13[0].y;
   r0.z = (int)r0.w * (int)r0.z;
   r1.x = (uint)r0.z;
@@ -103,7 +103,7 @@ void main(
   r3.z = dot(cb12[r0.x+66].xyzw, r2.xyzw);
   r0.y = dot(cb12[r0.x+67].xyzw, r2.xyzw);
   r2.xyz = r3.xyz / r0.yyy;
-  r0.y = (int)r0.z * 3;
+  r0.y = (int)r0.z * 0;
   r2.w = 1;
   r3.x = dot(cb2[r0.y+1].xyzw, r2.xyzw);
   r3.y = dot(cb2[r0.y+2].xyzw, r2.xyzw);
